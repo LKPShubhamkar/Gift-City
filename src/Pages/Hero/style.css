@@ -1,0 +1,204 @@
+.hero {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+.hero-container {
+  height: 100vh;
+  display: flex !important;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.hero-content {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-title {
+  font-size: 68px !important;
+  font-weight: 700 !important;
+  line-height: 1.4 !important;
+
+}
+
+.hero-swoosh {
+  width: 180px;
+  height: 42px;
+
+  background: linear-gradient(
+    90deg,
+    #085eac 0%,
+    #52a1e8 25%,
+    #ffffff 50%,
+    #52a1e8 75%,
+    #085eac 100%
+  );
+
+  background-size: 300% 100%;
+  /* background-repeat: no-repeat; */
+
+  animation: shine 5s ease-in-out infinite;
+}
+@keyframes shine {
+  0% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.hero-form {
+  width: 430px;
+  height: 560px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes moveGradient {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 250% 50%;
+  }
+}
+
+.brand-logo {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+
+  opacity: 0;
+  transform: scale(.2);
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+
+  animation: float 5s ease-in-out infinite;
+} 
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes blink {
+  0%, 100% {
+    opacity: 0.;
+    transform: scale(0.1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* .brand-logo {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+
+  border: 1px solid red;
+  background: rgba(255, 0, 0, 0.15);
+
+  opacity: 1;         
+  transform: scale(1); 
+} */
+
+.amazon {
+  top: 73%;
+  left: 21%;  animation-delay: 0s;
+}
+
+.tesla {
+  top: 70%;
+  left: 35%;  animation-delay: 0.3s;
+}
+
+.apple {
+  top: 75%;
+  left: 53%;  animation-delay: 0.6s;
+}
+
+.nvidia {
+  top: 26%;
+  left: 15%;  animation-delay: 0.9s;
+}
+
+.meta {
+  top: 34%;
+  left: 5%;  animation-delay: 1.2s;
+}
+
+.netflix {
+  top: 26%;
+  left: 24%;  animation-delay: 1.5s;
+}
+
+.microsoft {
+  top: 52%;
+  left: 45%;  animation-delay: 1.8s;
+}
+
+.toyota {
+  top: 28%;
+  left: 42%;  animation-delay: 2.1s;
+}
+
+.adobe {
+  top: 36%;
+  left: 56%;  animation-delay:2.4s;
+}
+
+
+
+
+
+
+@media (max-width: 900px) {
+  .hero-container {
+    flex-direction: column;
+    justify-content: center;
+    gap: 40px;
+    padding: 30px 20px;
+    text-align: center;
+  }
+
+  .hero-title {
+    font-size: 40px !important;
+  }
+
+
+  .hero-swoosh {
+    margin: 20px auto 0;
+  }
+
+  .hero-form {
+    width: 100%;
+    max-width: 420px;
+    height: 520px;
+  }
+}
