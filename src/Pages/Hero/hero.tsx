@@ -13,7 +13,6 @@ import microsoft from "../../assets/Hero/Microsoft.png";
 import toyota from "../../assets/Hero/Toyota.png";
 import adobe from "../../assets/Hero/Adobe.png";
 import tesla from "../../assets/Hero/Tesla.png";
-import LeadForm from "../../components/Form";
 
 const Hero = () => {
   useEffect(() => {
@@ -67,19 +66,15 @@ const Hero = () => {
             }}
           />
         </Box>
-
-        <Box className="hero-form">
-          <LeadForm />
-        </Box>
-        <img src={amazon} className="brand-logo amazon" />
-        <img src={tesla} className="brand-logo tesla" />
         <img src={apple} className="brand-logo apple" />
-        <img src={nvidia} className="brand-logo nvidia" />
-        <img src={meta} className="brand-logo meta" />
         <img src={netflix} className="brand-logo netflix" />
-        <img src={microsoft} className="brand-logo microsoft" />
         <img src={toyota} className="brand-logo toyota" />
+        <img src={amazon} className="brand-logo amazon" />
         <img src={adobe} className="brand-logo adobe" />
+        <img src={meta} className="brand-logo meta" />
+        <img src={tesla} className="brand-logo tesla" />
+        <img src={nvidia} className="brand-logo nvidia" />
+        <img src={microsoft} className="brand-logo microsoft" />
       </Container>
     </Box>
   );

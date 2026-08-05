@@ -1,46 +1,43 @@
 import { AppBar, Box, Toolbar } from "@mui/material";
 import logoLight from "../../assets/logo.png";
-import logoDark from "../../assets/logo-dark.png";
+import logoDark from "../../assets/dark-logo.png";
 import { useEffect, useState } from "react";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    const hero = document.querySelector(".hero");
+
     const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+      if (!hero) return;
+
+      const heroBottom = hero.getBoundingClientRect().bottom + window.scrollY;
+
+      setScrolled(window.scrollY >= heroBottom - 90); // 90 = header height
     };
-    console.log("scrolled", scrolled);
+
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll);
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  //   useEffect(() => {
-  //     const hero = document.querySelector(".hero");
-
-  //     const handleScroll = () => {
-  //       if (!hero) return;
-  //       setScrolled(window.scrollY >= hero.clientHeight);
-  //     };
-
-  //     handleScroll(); // set initial state
-
-  //     window.addEventListener("scroll", handleScroll);
-  //     return () => window.removeEventListener("scroll", handleScroll);
-  //   }, []);
 
   return (
     <AppBar
       elevation={0}
       sx={{
-        bgcolor: "transparent",
-        boxShadow: "none",
         position: "fixed",
         top: 0,
         left: 0,
         right: 0,
         zIndex: 1300,
+
+        bgcolor: scrolled ? "#fff" : "transparent",
+        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.08)" : "none",
+
+        transition: "background-color 0.3s ease, box-shadow 0.3s ease",
       }}
     >
       <Toolbar
@@ -56,7 +53,7 @@ const Header = () => {
       >
         <Box
           component="img"
-          src={scrolled ? logoLight : logoDark}
+          src={scrolled ? logoDark : logoLight}
           alt="LKP"
           sx={{
             width: {
@@ -66,6 +63,7 @@ const Header = () => {
             height: "auto",
             cursor: "pointer",
             userSelect: "none",
+            transition: "0.3s ease",
           }}
         />
       </Toolbar>

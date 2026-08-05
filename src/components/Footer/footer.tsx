@@ -29,14 +29,39 @@ const Footer = () => {
   ];
 
   const firstLinks = [
-    "Privacy Policy",
-    "Disclaimer",
-    "Advisory for Investors",
-    "Investor Charter",
-    "Investor Information",
+    {
+      label: "Privacy Policy",
+      href: "https://lkpifsc.com/privacypolicy",
+    },
+    {
+      label: "Disclaimer",
+      href: "https://lkpifsc.com/disclaimer",
+    },
+    {
+      label: "Advisory for Investors",
+      href: "https://lkpifsc.com/advisoryinfo",
+    },
+    {
+      label: "Investor Information",
+      href: "https://lkpifsc.com/investorinfo",
+    },
+    {
+      label: "NSEIX",
+      href: "https://www.nseix.com/",
+    },
+    {
+      label: "IFSCA",
+      href: "https://www.ifsca.gov.in/",
+    },
+    {
+      label: "GIFT City",
+      href: "https://www.giftgujarat.in/",
+    },
+    {
+      label: "GIFT SEZ",
+      href: "https://giftsez.com/#welcome",
+    },
   ];
-
-  const secondLinks = ["NSEIX", "IFSCA", "GIFT City", "GIFT SEZ"];
 
   return (
     <Box
@@ -294,50 +319,23 @@ const Footer = () => {
             >
               {firstLinks.map((link, index) => (
                 <Typography
-                  key={link}
+                  key={link.label}
+                  component="a"
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   sx={{
                     fontSize: 18,
                     cursor: "pointer",
+                    color: "inherit",
+                    textDecoration: "none",
                     "&:hover": {
                       color: "#6FB8FF",
                     },
                   }}
                 >
-                  {link}
+                  {link.label}
                   {index !== firstLinks.length - 1 && (
-                    <Box
-                      component="span"
-                      sx={{
-                        mx: 2,
-                        color: "rgba(255,255,255,.5)",
-                      }}
-                    >
-                      |
-                    </Box>
-                  )}
-                </Typography>
-              ))}
-            </Stack>
-
-            <Stack
-              sx={{
-                flexDirection: "row",
-                flexWrap: "wrap",
-              }}
-            >
-              {secondLinks.map((link, index) => (
-                <Typography
-                  key={link}
-                  sx={{
-                    fontSize: 18,
-                    cursor: "pointer",
-                    "&:hover": {
-                      color: "#6FB8FF",
-                    },
-                  }}
-                >
-                  {link}
-                  {index !== secondLinks.length - 1 && (
                     <Box
                       component="span"
                       sx={{

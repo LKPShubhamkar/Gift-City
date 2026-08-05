@@ -1,6 +1,27 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 
+const inputSx = {
+  "& .MuiOutlinedInput-root": {
+    height: 56,
+    borderRadius: "16px",
+    bgcolor: "#fff",
+    boxShadow: "0 6px 18px rgba(0,0,0,.08)",
+
+    "& fieldset": {
+      borderColor: "#ECECEC",
+    },
+
+    "&:hover fieldset": {
+      borderColor: "#0054A6",
+    },
+
+    "&.Mui-focused fieldset": {
+      borderColor: "#0054A6",
+    },
+  },
+};
+
 const LeadForm = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
 
@@ -20,11 +41,19 @@ const LeadForm = () => {
   return (
     <Box
       sx={{
-        width: 460,
+        width: {
+          xs: "100%",
+          sm: 420,
+          md: 460,
+        },
+        maxWidth: "100%",
         bgcolor: "#fff",
-        borderRadius: "32px",
-        p: "24px",
-        boxShadow: "0 18px 45px rgba(0,0,0,.25)",
+        borderRadius: "36px",
+        p: {
+          xs: 3,
+          md: 3.5,
+        },
+        boxShadow: "0 18px 40px rgba(0,0,0,.18)",
       }}
     >
       <Typography
@@ -32,70 +61,27 @@ const LeadForm = () => {
           textAlign: "center",
           fontSize: 24,
           fontWeight: 700,
-          mb: 2,
+          mb: 3,
         }}
       >
         Get More Information
       </Typography>
 
-      <Stack spacing={2}>
-        <TextField
-          fullWidth
-          label="Name"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "16px",
-              bgcolor: "#fff",
-              boxShadow: "0 4px 18px rgba(0,0,0,.08)",
-
-              "& fieldset": {
-                borderColor: "#ECECEC",
-              },
-
-              "&:hover fieldset": {
-                borderColor: "#0054A6",
-              },
-
-              "&.Mui-focused fieldset": {
-                borderColor: "#0054A6",
-              },
-            },
-          }}
-        />
+      <Stack spacing={2.2}>
+        <TextField fullWidth label="Name" sx={inputSx} />
 
         <Box sx={{ position: "relative" }}>
-          <TextField
-            fullWidth
-            label="Mobile Number"
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                borderRadius: "16px",
-                bgcolor: "#fff",
-                boxShadow: "0 4px 18px rgba(0,0,0,.08)",
-
-                "& fieldset": {
-                  borderColor: "#ECECEC",
-                },
-
-                "&:hover fieldset": {
-                  borderColor: "#0054A6",
-                },
-
-                "&.Mui-focused fieldset": {
-                  borderColor: "#0054A6",
-                },
-              },
-            }}
-          />
+          <TextField fullWidth label="Mobile Number" sx={inputSx} />
 
           <Typography
             sx={{
               position: "absolute",
-              right: 18,
-              top: "50%",
+              right: 20,
+              top: "52%",
               transform: "translateY(-50%)",
               color: "#0054A6",
               fontWeight: 500,
+              fontSize: 15,
               cursor: "pointer",
             }}
           >
@@ -111,21 +97,9 @@ const LeadForm = () => {
               mb: 1.5,
             }}
           >
-            <Typography
-              sx={{
-                color: "#555",
-              }}
-            >
-              Enter OTP
-            </Typography>
+            <Typography color="#555">Enter OTP</Typography>
 
-            <Typography
-              sx={{
-                color: "#555",
-              }}
-            >
-              00:60
-            </Typography>
+            <Typography color="#555">00:59</Typography>
           </Box>
 
           <Stack direction="row" spacing={2}>
@@ -135,19 +109,22 @@ const LeadForm = () => {
                 id={`otp-${index}`}
                 value={digit}
                 onChange={(e) => handleOtpChange(e.target.value, index)}
-                inputProps={{
-                  maxLength: 1,
-                  style: {
-                    textAlign: "center",
-                    fontSize: 22,
+                slotProps={{
+                  htmlInput: {
+                    maxLength: 1,
+                    style: {
+                      textAlign: "center",
+                      fontSize: 22,
+                    },
                   },
                 }}
                 sx={{
-                  width: 58,
+                  width: 64,
 
                   "& .MuiOutlinedInput-root": {
-                    height: 58,
-                    borderRadius: "12px",
+                    width: 64,
+                    height: 64,
+                    borderRadius: "14px",
                     boxShadow: "0 4px 14px rgba(0,0,0,.08)",
 
                     "& fieldset": {
@@ -164,44 +141,23 @@ const LeadForm = () => {
           </Stack>
         </Box>
 
-        <TextField
-          fullWidth
-          label="Enter Your City Name"
-          sx={{
-            "& .MuiOutlinedInput-root": {
-              borderRadius: "16px",
-              bgcolor: "#fff",
-              boxShadow: "0 4px 18px rgba(0,0,0,.08)",
-
-              "& fieldset": {
-                borderColor: "#ECECEC",
-              },
-
-              "&.Mui-focused fieldset": {
-                borderColor: "#0054A6",
-              },
-            },
-          }}
-        />
+        <TextField fullWidth label="Enter Your City Name" sx={inputSx} />
 
         <TextField
           fullWidth
           multiline
-          rows={3}
+          rows={2}
           label="Enter your Query"
           sx={{
+            ...inputSx,
+
+            "& textarea": {
+              resize: "none",
+            },
+
             "& .MuiOutlinedInput-root": {
-              borderRadius: "16px",
-              bgcolor: "#fff",
-              boxShadow: "0 4px 18px rgba(0,0,0,.08)",
-
-              "& fieldset": {
-                borderColor: "#ECECEC",
-              },
-
-              "&.Mui-focused fieldset": {
-                borderColor: "#0054A6",
-              },
+              ...inputSx["& .MuiOutlinedInput-root"],
+              height: "auto",
             },
           }}
         />
@@ -209,13 +165,12 @@ const LeadForm = () => {
         <Button
           variant="contained"
           sx={{
-            height: 56,
-            borderRadius: "16px",
+            height: 60,
+            borderRadius: "18px",
             bgcolor: "#0054A6",
             textTransform: "none",
             fontSize: 20,
             fontWeight: 600,
-            boxShadow: "none",
 
             "&:hover": {
               bgcolor: "#00458A",
