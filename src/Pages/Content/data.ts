@@ -30,3 +30,57 @@ export const ifsca = {
   title: "About IFSCA",
   description: `The International Financial Services Centres Authority (IFSCA) is the unified regulator for India's International Financial Services Centres (IFSCs), including GIFT City. It oversees financial institutions, products, and services, fostering a globally competitive, transparent, and investor-friendly financial ecosystem.`,
 };
+
+export const registrationDetails = [
+  {
+    label: "IFSCA registration number:",
+    value: "IFSC/BD/2023-24/0019",
+  },
+  {
+    label: "NSEIX:",
+    value: "10076",
+  },
+  {
+    label: "CIN:",
+    value: "U67190GJ2022PTC131772",
+  },
+  {
+    label: "GUJARAT GSTIN No:",
+    value: "24AAFCL0189B1ZW",
+  },
+];
+
+export const firstLinks = [
+  {
+    label: "Privacy Policy",
+    href: "https://lkpifsc.com/privacypolicy",
+  },
+  {
+    label: "Disclaimer",
+    href: "https://lkpifsc.com/disclaimer",
+  },
+  {
+    label: "Advisory for Investors",
+    href: "https://lkpifsc.com/advisoryinfo",
+  },
+  {
+    label: "Investor Information",
+    href: "https://lkpifsc.com/investorinfo",
+  },
+  {
+    label: "NSEIX",
+    href: "https://www.nseix.com/",
+  },
+  {
+    label: "IFSCA",
+    href: "https://www.ifsca.gov.in/",
+  },
+  {
+    label: "GIFT City",
+    href: "https://www.giftgujarat.in/",
+  },
+  {
+    label: "GIFT SEZ",
+    href: "https://giftsez.com/#welcome",
+  },
+];

@@ -41,12 +41,13 @@ const LeadForm = () => {
   return (
     <Box
       sx={{
-        width: {
-          xs: "100%",
+        width: "100%",
+        maxWidth: {
+          xs: 340,
           sm: 420,
           md: 460,
         },
-        maxWidth: "100%",
+        mx: "auto",
         bgcolor: "#fff",
         borderRadius: "36px",
         p: {

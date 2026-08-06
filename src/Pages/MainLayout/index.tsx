@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, useMediaQuery, useTheme } from "@mui/material";
 import Header from "../../components/Header/header";
 import Hero from "../Hero/hero";
 import LeadForm from "../../components/Form";
@@ -6,6 +6,8 @@ import GiftInfo from "../Content";
 import Footer from "../../components/Footer/footer";
 
 const MainLayout = () => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("md"));
   return (
     <>
       <Header />
@@ -26,7 +28,7 @@ const MainLayout = () => {
               lg: 8,
               xl: 12,
             },
-            mt: "-1520px",
+            mt: "-100vh",
             position: "relative",
             zIndex: 10,
           }}
@@ -36,25 +38,27 @@ const MainLayout = () => {
             sx={{
               flex: 1,
               maxWidth: 720,
-              pt: "1560px",
+              pt: "100vh",
             }}
           >
             <GiftInfo />
           </Box>
 
           {/* Right */}
-          <Box
-            sx={{
-              width: 460,
-              flexShrink: 0,
-              position: "sticky",
-              top: 110,
-              alignSelf: "flex-start",
-              paddingBottom: 10,
-            }}
-          >
-            <LeadForm />
-          </Box>
+          {!mobile && (
+            <Box
+              sx={{
+                width: 460,
+                flexShrink: 0,
+                position: "sticky",
+                top: 110,
+                alignSelf: "flex-start",
+                paddingBottom: 10,
+              }}
+            >
+              <LeadForm />
+            </Box>
+          )}
         </Box>
 
         <Footer />

@@ -7,62 +7,9 @@ import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 
 import background from "../../assets/Footer-background.png";
 import logo from "../../assets/logo.png";
+import { firstLinks, registrationDetails } from "../../Pages/Content/data";
 
 const Footer = () => {
-  const registrationDetails = [
-    {
-      label: "IFSCA registration number:",
-      value: "IFSC/BD/2023-24/0019",
-    },
-    {
-      label: "NSEIX:",
-      value: "10076",
-    },
-    {
-      label: "CIN:",
-      value: "U67190GJ2022PTC131772",
-    },
-    {
-      label: "GUJARAT GSTIN No:",
-      value: "24AAFCL0189B1ZW",
-    },
-  ];
-
-  const firstLinks = [
-    {
-      label: "Privacy Policy",
-      href: "https://lkpifsc.com/privacypolicy",
-    },
-    {
-      label: "Disclaimer",
-      href: "https://lkpifsc.com/disclaimer",
-    },
-    {
-      label: "Advisory for Investors",
-      href: "https://lkpifsc.com/advisoryinfo",
-    },
-    {
-      label: "Investor Information",
-      href: "https://lkpifsc.com/investorinfo",
-    },
-    {
-      label: "NSEIX",
-      href: "https://www.nseix.com/",
-    },
-    {
-      label: "IFSCA",
-      href: "https://www.ifsca.gov.in/",
-    },
-    {
-      label: "GIFT City",
-      href: "https://www.giftgujarat.in/",
-    },
-    {
-      label: "GIFT SEZ",
-      href: "https://giftsez.com/#welcome",
-    },
-  ];
-
   return (
     <Box
       sx={{
@@ -260,14 +207,21 @@ const Footer = () => {
             sx={{
               flex: 1,
               pt: {
+                xs: 0,
                 lg: 3,
               },
             }}
           >
             <Stack
               sx={{
-                gap: 3,
-                mb: 8,
+                gap: {
+                  xs: 1.5,
+                  md: 3,
+                },
+                mb: {
+                  xs: 4,
+                  md: 8,
+                },
               }}
             >
               {registrationDetails.map((item) => (
@@ -275,14 +229,25 @@ const Footer = () => {
                   key={item.label}
                   sx={{
                     flexDirection: "row",
-                    gap: 5,
+                    alignItems: "center",
+                    gap: {
+                      xs: 1,
+                      md: 5,
+                    },
                   }}
                 >
                   <Typography
                     sx={{
-                      width: 260,
+                      width: {
+                        // xs: 110,
+                        md: 260,
+                      },
                       color: "rgba(255,255,255,.9)",
-                      fontSize: 18,
+                      fontSize: {
+                        xs: 14,
+                        md: 18,
+                      },
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {item.label}
@@ -290,7 +255,11 @@ const Footer = () => {
 
                   <Typography
                     sx={{
-                      fontSize: 18,
+                      fontSize: {
+                        xs: 14,
+                        md: 18,
+                      },
+                      whiteSpace: "nowrap",
                     }}
                   >
                     {item.value}
@@ -302,8 +271,14 @@ const Footer = () => {
             <Typography
               sx={{
                 fontWeight: 700,
-                fontSize: 24,
-                mb: 3,
+                fontSize: {
+                  xs: 14,
+                  md: 24,
+                },
+                mb: {
+                  xs: 2,
+                  md: 3,
+                },
               }}
             >
               Other Links
@@ -313,7 +288,10 @@ const Footer = () => {
               sx={{
                 flexDirection: "row",
                 flexWrap: "wrap",
-                rowGap: 2,
+                rowGap: {
+                  xs: 1,
+                  md: 2,
+                },
                 mb: 4,
               }}
             >
@@ -325,21 +303,29 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{
-                    fontSize: 18,
+                    fontSize: {
+                      xs: 11,
+                      md: 18,
+                    },
                     cursor: "pointer",
                     color: "inherit",
                     textDecoration: "none",
+
                     "&:hover": {
                       color: "#6FB8FF",
                     },
                   }}
                 >
                   {link.label}
+
                   {index !== firstLinks.length - 1 && (
                     <Box
                       component="span"
                       sx={{
-                        mx: 2,
+                        mx: {
+                          xs: 1,
+                          md: 2,
+                        },
                         color: "rgba(255,255,255,.5)",
                       }}
                     >

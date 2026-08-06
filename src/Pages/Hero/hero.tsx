@@ -1,4 +1,10 @@
-import { Box, Container, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
 import background from "../../assets/Hero/hero-background.png";
 // import logo from "../../assets/logo.png";
 import swoosh from "../../assets/Hero/swoosh.png";
@@ -13,8 +19,12 @@ import microsoft from "../../assets/Hero/Microsoft.png";
 import toyota from "../../assets/Hero/Toyota.png";
 import adobe from "../../assets/Hero/Adobe.png";
 import tesla from "../../assets/Hero/Tesla.png";
+import LeadForm from "../../components/Form";
 
 const Hero = () => {
+  const theme = useTheme();
+  const mobile = useMediaQuery(theme.breakpoints.down("md"));
+
   useEffect(() => {
     const logos = document.querySelectorAll(".brand-logo");
 
@@ -66,15 +76,24 @@ const Hero = () => {
             }}
           />
         </Box>
-        <img src={apple} className="brand-logo apple" />
-        <img src={netflix} className="brand-logo netflix" />
-        <img src={toyota} className="brand-logo toyota" />
-        <img src={amazon} className="brand-logo amazon" />
-        <img src={adobe} className="brand-logo adobe" />
-        <img src={meta} className="brand-logo meta" />
-        <img src={tesla} className="brand-logo tesla" />
-        <img src={nvidia} className="brand-logo nvidia" />
-        <img src={microsoft} className="brand-logo microsoft" />
+        {mobile && (
+          <Box className="hero-mobile-form">
+            <LeadForm />
+          </Box>
+        )}
+        {!mobile && (
+          <>
+            <img src={apple} className="brand-logo apple" />
+            <img src={netflix} className="brand-logo netflix" />
+            <img src={toyota} className="brand-logo toyota" />
+            <img src={amazon} className="brand-logo amazon" />
+            <img src={adobe} className="brand-logo adobe" />
+            <img src={meta} className="brand-logo meta" />
+            <img src={tesla} className="brand-logo tesla" />
+            <img src={nvidia} className="brand-logo nvidia" />
+            <img src={microsoft} className="brand-logo microsoft" />
+          </>
+        )}
       </Container>
     </Box>
   );
