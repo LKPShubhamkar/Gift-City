@@ -1,92 +1,260 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useState } from "react";
-
-const inputSx = {
-  "& .MuiOutlinedInput-root": {
-    height: 56,
-    borderRadius: "16px",
-    bgcolor: "#fff",
-    boxShadow: "0 6px 18px rgba(0,0,0,.08)",
-
-    "& fieldset": {
-      borderColor: "#ECECEC",
-    },
-
-    "&:hover fieldset": {
-      borderColor: "#0054A6",
-    },
-
-    "&.Mui-focused fieldset": {
-      borderColor: "#0054A6",
-    },
-  },
-};
+import { useEffect, useState } from "react";
+import { commonApi } from "../../../services";
+import { styles } from "./style";
 
 const LeadForm = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    mobileNo: "",
+    city: "",
+    query: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    mobileNo: "",
+    city: "",
+    query: "",
+    otp: "",
+  });
+
   const [otp, setOtp] = useState(["", "", "", ""]);
+  const [timer, setTimer] = useState(0);
+  const [otpSent, setOtpSent] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleOtpChange = (value: string, index: number) => {
     if (!/^\d?$/.test(value)) return;
 
     const temp = [...otp];
     temp[index] = value;
+
     setOtp(temp);
 
     if (value && index < 3) {
-      const next = document.getElementById(`otp-${index + 1}`);
-      (next as HTMLInputElement)?.focus();
+      (
+        document.getElementById(`otp-${index + 1}`) as HTMLInputElement
+      )?.focus();
+    }
+
+    if (!value && index > 0) {
+      (
+        document.getElementById(`otp-${index - 1}`) as HTMLInputElement
+      )?.focus();
     }
   };
 
+  useEffect(() => {
+    if (timer <= 0) return;
+
+    const interval = setInterval(() => {
+      setTimer((prev) => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timer]);
+
+  const submitLead = async () => {
+    if (!validate()) return;
+
+    try {
+      setLoading(true);
+
+      const response = await commonApi("WebAdmin/AddApRefLeadsData", {
+        ...formData,
+        type: "GiftCity/AP",
+      });
+
+      console.log(response);
+
+      if (response?.isSuccess) {
+        setFormData({
+          name: "",
+          mobileNo: "",
+          city: "",
+          query: "",
+        });
+
+        setOtp(["", "", "", ""]);
+        setOtpSent(false);
+        setTimer(0);
+        setErrors({
+          name: "",
+          mobileNo: "",
+          city: "",
+          query: "",
+          otp: "",
+        });
+      }
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    const { name, value } = e.target;
+
+    if (name === "name") {
+      const nameValue = value.replace(/[^A-Za-z ]/g, "");
+
+      setFormData((prev) => ({
+        ...prev,
+        name: nameValue,
+      }));
+
+      if (errors.name) {
+        setErrors((prev) => ({
+          ...prev,
+          name: "",
+        }));
+      }
+
+      return;
+    }
+
+    if (name === "mobileNo") {
+      const mobile = value.replace(/\D/g, "").slice(0, 10);
+
+      setFormData((prev) => ({
+        ...prev,
+        mobileNo: mobile,
+      }));
+
+      if (errors.mobileNo) {
+        setErrors((prev) => ({
+          ...prev,
+          mobileNo: "",
+        }));
+      }
+
+      return;
+    }
+
+    if (name === "query") {
+      setFormData((prev) => ({
+        ...prev,
+        query: value.slice(0, 100),
+      }));
+
+      if (errors.query) {
+        setErrors((prev) => ({
+          ...prev,
+          query: "",
+        }));
+      }
+
+      return;
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (errors[name as keyof typeof errors]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+  const validate = () => {
+    const temp = {
+      name: "",
+      mobileNo: "",
+      city: "",
+      query: "",
+      otp: "",
+    };
+
+    let valid = true;
+
+    if (!formData.name.trim()) {
+      temp.name = "Name is required";
+      valid = false;
+    }
+
+    if (!/^[A-Za-z ]+$/.test(formData.name.trim())) {
+      temp.name = "Only alphabets allowed";
+      valid = false;
+    }
+
+    if (!/^[6-9]\d{9}$/.test(formData.mobileNo)) {
+      temp.mobileNo = "Enter valid mobile number";
+      valid = false;
+    }
+
+    if (!formData.city.trim()) {
+      temp.city = "City is required";
+      valid = false;
+    }
+
+    if (!formData.query.trim()) {
+      temp.query = "Query is required";
+      valid = false;
+    }
+
+    if (otp.join("").length !== 4) {
+      temp.otp = "Enter OTP";
+      valid = false;
+    }
+
+    setErrors(temp);
+
+    return valid;
+  };
+  const sendOtp = () => {
+    if (!/^[6-9]\d{9}$/.test(formData.mobileNo)) {
+      setErrors((prev) => ({
+        ...prev,
+        mobileNo: "Enter valid mobile number",
+      }));
+      return;
+    }
+
+    setOtp(["", "", "", ""]);
+    setOtpSent(true);
+    setTimer(60);
+
+    console.log("OTP Sent");
+  };
   return (
-    <Box
-      sx={{
-        width: "100%",
-        maxWidth: {
-          xs: 340,
-          sm: 420,
-          md: 460,
-        },
-        mx: "auto",
-        bgcolor: "#fff",
-        borderRadius: "36px",
-        p: {
-          xs: 3,
-          md: 3.5,
-        },
-        boxShadow: "0 18px 40px rgba(0,0,0,.18)",
-      }}
-    >
-      <Typography
-        sx={{
-          textAlign: "center",
-          fontSize: 24,
-          fontWeight: 700,
-          mb: 3,
-        }}
-      >
-        Get More Information
-      </Typography>
+    <Box sx={styles.container}>
+      <Typography sx={styles.title}>Get More Information</Typography>
 
       <Stack spacing={2.2}>
-        <TextField fullWidth label="Name" sx={inputSx} />
+        <TextField
+          fullWidth
+          label="Name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          error={!!errors.name}
+          helperText={errors.name}
+          sx={styles.input}
+        />
 
-        <Box sx={{ position: "relative" }}>
-          <TextField fullWidth label="Mobile Number" sx={inputSx} />
+        <Box sx={styles.mobileWrapper}>
+          <TextField
+            fullWidth
+            label="Mobile Number"
+            name="mobileNo"
+            value={formData.mobileNo}
+            onChange={handleChange}
+            error={!!errors.mobileNo}
+            helperText={errors.mobileNo}
+            sx={styles.input}
+          />
 
           <Typography
-            sx={{
-              position: "absolute",
-              right: 20,
-              top: "52%",
-              transform: "translateY(-50%)",
-              color: "#0054A6",
-              fontWeight: 500,
-              fontSize: 15,
-              cursor: "pointer",
-            }}
+            sx={styles.sendOtp}
+            onClick={timer === 0 ? sendOtp : undefined}
           >
-            Send OTP
+            {timer > 0 ? `Resend (${timer})` : "Send OTP"}
           </Typography>
         </Box>
 
@@ -100,7 +268,9 @@ const LeadForm = () => {
           >
             <Typography color="#555">Enter OTP</Typography>
 
-            <Typography color="#555">00:59</Typography>
+            <Typography color="#555">
+              {otpSent ? `00:${String(timer).padStart(2, "0")}` : "00:00"}
+            </Typography>
           </Box>
 
           <Stack direction="row" spacing={2}>
@@ -119,67 +289,61 @@ const LeadForm = () => {
                     },
                   },
                 }}
-                sx={{
-                  width: 64,
-
-                  "& .MuiOutlinedInput-root": {
-                    width: 64,
-                    height: 64,
-                    borderRadius: "14px",
-                    boxShadow: "0 4px 14px rgba(0,0,0,.08)",
-
-                    "& fieldset": {
-                      borderColor: "#D7D7D7",
-                    },
-
-                    "&.Mui-focused fieldset": {
-                      borderColor: "#0054A6",
-                    },
-                  },
-                }}
+                sx={styles.otpBox}
               />
             ))}
+            {errors.otp && (
+              <Typography
+                sx={{
+                  color: "error.main",
+                  fontSize: 12,
+                  mt: 1,
+                }}
+              >
+                {errors.otp}
+              </Typography>
+            )}
           </Stack>
         </Box>
 
-        <TextField fullWidth label="Enter Your City Name" sx={inputSx} />
+        <TextField
+          fullWidth
+          label="Enter Your City Name"
+          name="city"
+          value={formData.city}
+          onChange={handleChange}
+          error={!!errors.city}
+          helperText={errors.city}
+          sx={styles.input}
+        />
 
         <TextField
           fullWidth
           multiline
-          rows={2}
+          // rows={2}
           label="Enter your Query"
-          sx={{
-            ...inputSx,
-
-            "& textarea": {
-              resize: "none",
-            },
-
-            "& .MuiOutlinedInput-root": {
-              ...inputSx["& .MuiOutlinedInput-root"],
-              height: "auto",
-            },
-          }}
+          name="query"
+          value={formData.query}
+          onChange={handleChange}
+          error={!!errors.query}
+          helperText={errors.query}
+          sx={styles.queryInput}
         />
-
-        <Button
-          variant="contained"
+        <Typography
           sx={{
-            height: 60,
-            borderRadius: "18px",
-            bgcolor: "#0054A6",
-            textTransform: "none",
-            fontSize: 20,
-            fontWeight: 600,
-
-            "&:hover": {
-              bgcolor: "#00458A",
-              boxShadow: "none",
-            },
+            textAlign: "right",
+            fontSize: 12,
+            color: "text.secondary",
           }}
         >
-          Request a call back
+          {formData.query.length}/100
+        </Typography>
+        <Button
+          sx={styles.submitButton}
+          onClick={submitLead}
+          disabled={loading}
+        >
+          {loading ? "Submitting..." : "Request a call back"}
         </Button>
       </Stack>
     </Box>
