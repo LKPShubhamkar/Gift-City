@@ -8,21 +8,25 @@ export const whyGiftItems = [
     title: "Global Investment Access",
     description:
       "Invest in international markets and diversify your portfolio beyond domestic boundaries.",
+    color: "#0054A6",
   },
   {
     title: "Investor-Friendly Regulatory Framework",
     description:
       "Benefit from a simplified, globally aligned regulatory environment designed to facilitate international financial transactions.",
+    color: "#2387E8",
   },
   {
     title: "Tax & Business Advantages",
     description:
       "Enjoy an ecosystem that offers attractive tax incentives and a business-friendly framework for eligible participants within the IFSC.",
+    color: "#67B4FF",
   },
   {
     title: "World-Class Infrastructure",
     description:
       "Operate from a smart city built with cutting-edge digital infrastructure, sustainable urban planning, and global connectivity.",
+    color: "#9CCEFF",
   },
 ];
 

@@ -76,9 +76,9 @@ const GiftInfo = () => {
           >
             <Box
               sx={{
-                width: 8,
+                width: 10,
                 borderRadius: 10,
-                background: "linear-gradient(180deg,#0054A6 0%,#59B2FF 100%)",
+                bgcolor: item.color,
                 flexShrink: 0,
               }}
             />

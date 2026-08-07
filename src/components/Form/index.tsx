@@ -59,7 +59,14 @@ const LeadForm = () => {
           </Typography>
         </Box>
 
-        {timer > 0 && (
+        {/* {timer > 0 && ( */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
           <Typography
             sx={{
               mt: 0.5,
@@ -69,9 +76,22 @@ const LeadForm = () => {
               pr: 3,
             }}
           >
+            Enter OTP
+          </Typography>
+          <Typography
+            sx={{
+              mt: 0.5,
+              fontSize: 14,
+              color: "text.secondary",
+              textAlign: "right",
+              pr: 0.5,
+            }}
+          >
             00:{String(timer).padStart(2, "0")}
           </Typography>
-        )}
+        </Box>
+
+        {/* )} */}
         <Box>
           <Stack
             direction="row"

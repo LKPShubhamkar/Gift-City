@@ -105,7 +105,10 @@ const useLeadForm = () => {
     const { name, value } = e.target;
 
     if (name === "name") {
-      const nameValue = value.replace(/[^A-Za-z ]/g, "");
+      const nameValue = value
+        .replace(/[^A-Za-z ]/g, "")
+        .replace(/\s{2,}/g, " ")
+        .replace(/^\s+/, "");
 
       setFormData((prev) => ({
         ...prev,
@@ -139,6 +142,27 @@ const useLeadForm = () => {
         setErrors((prev) => ({
           ...prev,
           mobileNo: "",
+        }));
+      }
+
+      return;
+    }
+
+    if (name === "city") {
+      const cityValue = value
+        .replace(/[^A-Za-z ]/g, "")
+        .replace(/\s{2,}/g, " ")
+        .replace(/^\s+/, "");
+
+      setFormData((prev) => ({
+        ...prev,
+        city: cityValue,
+      }));
+
+      if (errors.city) {
+        setErrors((prev) => ({
+          ...prev,
+          city: "",
         }));
       }
 

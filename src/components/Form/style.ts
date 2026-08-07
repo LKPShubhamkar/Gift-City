@@ -10,7 +10,7 @@ export const styles = {
     bgcolor: "#fff",
     borderRadius: "36px",
     p: {
-      xs: 3,
+      xs: 2.2,
       md: 3.5,
     },
     boxShadow: "0 18px 40px rgba(0,0,0,.18)",
@@ -66,12 +66,28 @@ export const styles = {
   },
 
   otpBox: {
-    width: 34,
+    width: {
+      xs: 22,
+      sm: 32,
+      md: 34,
+    },
 
     "& .MuiOutlinedInput-root": {
-      width: 45,
-      height: 45,
-      borderRadius: "14px",
+      width: {
+        xs: 32,
+        sm: 42,
+        md: 45,
+      },
+      height: {
+        xs: 38,
+        sm: 42,
+        md: 45,
+      },
+      borderRadius: {
+        xs: "10px",
+        sm: "12px",
+        md: "14px",
+      },
       boxShadow: "0 4px 14px rgba(0,0,0,.08)",
 
       "& fieldset": {
@@ -84,12 +100,29 @@ export const styles = {
     },
   },
   verifyButton: {
-    minWidth: 90,
-    height: 45,
-    borderRadius: "12px",
-    textTransform: "none",
+    minWidth: {
+      xs: 52,
+      sm: 84,
+      md: 90,
+    },
+    height: {
+      xs: 38,
+      sm: 42,
+      md: 45,
+    },
+    borderRadius: {
+      xs: "10px",
+      sm: "11px",
+      md: "12px",
+    },
+
+    fontSize: {
+      xs: 12,
+      sm: 15,
+      md: 16,
+    },
     fontWeight: 600,
-    fontSize: 16,
+    textTransform: "none",
 
     bgcolor: "#0054A6",
     color: "#fff",
@@ -97,13 +130,13 @@ export const styles = {
 
     "&:hover": {
       bgcolor: "#024b94",
-
       boxShadow: "none",
     },
 
     "&.Mui-disabled": {
-      bgcolor: "#3f74a8",
-      color: "#ffffff",
+      bgcolor: "#EAEAEA",
+      color: "#616161",
+      border: "1px solid #dddddd",
       opacity: 1,
     },
   },
@@ -134,19 +167,22 @@ export const styles = {
   submitButton: {
     height: 55,
     borderRadius: "18px",
-    bgcolor: "#0054A6",
     textTransform: "none",
     fontSize: 20,
     fontWeight: 700,
+    bgcolor: "#095192",
     color: "#fff",
+    boxShadow: "none",
     "&:hover": {
-      bgcolor: "#00458A",
+      bgcolor: "#07457B",
       boxShadow: "none",
     },
-    "&:disabled": {
-      bgcolor: "#808080",
-      boxShadow: "none",
-      color: "#fff",
+
+    "&.Mui-disabled": {
+      bgcolor: "#EAEAEA",
+      color: "#616161",
+      border: "1px solid #dddddd",
+      opacity: 1,
     },
   },
 };
