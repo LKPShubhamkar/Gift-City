@@ -1,231 +1,28 @@
 import { Box, Button, Stack, TextField, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { commonApi } from "../../../services";
 import { styles } from "./style";
+import useLeadForm from "./useLeadForm";
+import SuccessModal from "../Modal";
 
 const LeadForm = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    mobileNo: "",
-    city: "",
-    query: "",
-  });
-
-  const [errors, setErrors] = useState({
-    name: "",
-    mobileNo: "",
-    city: "",
-    query: "",
-    otp: "",
-  });
-
-  const [otp, setOtp] = useState(["", "", "", ""]);
-  const [timer, setTimer] = useState(0);
-  const [otpSent, setOtpSent] = useState(false);
-  const [loading, setLoading] = useState(false);
-
-  const handleOtpChange = (value: string, index: number) => {
-    if (!/^\d?$/.test(value)) return;
-
-    const temp = [...otp];
-    temp[index] = value;
-
-    setOtp(temp);
-
-    if (value && index < 3) {
-      (
-        document.getElementById(`otp-${index + 1}`) as HTMLInputElement
-      )?.focus();
-    }
-
-    if (!value && index > 0) {
-      (
-        document.getElementById(`otp-${index - 1}`) as HTMLInputElement
-      )?.focus();
-    }
-  };
-
-  useEffect(() => {
-    if (timer <= 0) return;
-
-    const interval = setInterval(() => {
-      setTimer((prev) => prev - 1);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timer]);
-
-  const submitLead = async () => {
-    if (!validate()) return;
-
-    try {
-      setLoading(true);
-
-      const response = await commonApi("WebAdmin/AddApRefLeadsData", {
-        ...formData,
-        type: "GiftCity/AP",
-      });
-
-      console.log(response);
-
-      if (response?.isSuccess) {
-        setFormData({
-          name: "",
-          mobileNo: "",
-          city: "",
-          query: "",
-        });
-
-        setOtp(["", "", "", ""]);
-        setOtpSent(false);
-        setTimer(0);
-        setErrors({
-          name: "",
-          mobileNo: "",
-          city: "",
-          query: "",
-          otp: "",
-        });
-      }
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
-    const { name, value } = e.target;
-
-    if (name === "name") {
-      const nameValue = value.replace(/[^A-Za-z ]/g, "");
-
-      setFormData((prev) => ({
-        ...prev,
-        name: nameValue,
-      }));
-
-      if (errors.name) {
-        setErrors((prev) => ({
-          ...prev,
-          name: "",
-        }));
-      }
-
-      return;
-    }
-
-    if (name === "mobileNo") {
-      const mobile = value.replace(/\D/g, "").slice(0, 10);
-
-      setFormData((prev) => ({
-        ...prev,
-        mobileNo: mobile,
-      }));
-
-      if (errors.mobileNo) {
-        setErrors((prev) => ({
-          ...prev,
-          mobileNo: "",
-        }));
-      }
-
-      return;
-    }
-
-    if (name === "query") {
-      setFormData((prev) => ({
-        ...prev,
-        query: value.slice(0, 100),
-      }));
-
-      if (errors.query) {
-        setErrors((prev) => ({
-          ...prev,
-          query: "",
-        }));
-      }
-
-      return;
-    }
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    if (errors[name as keyof typeof errors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
-  const validate = () => {
-    const temp = {
-      name: "",
-      mobileNo: "",
-      city: "",
-      query: "",
-      otp: "",
-    };
-
-    let valid = true;
-
-    if (!formData.name.trim()) {
-      temp.name = "Name is required";
-      valid = false;
-    }
-
-    if (!/^[A-Za-z ]+$/.test(formData.name.trim())) {
-      temp.name = "Only alphabets allowed";
-      valid = false;
-    }
-
-    if (!/^[6-9]\d{9}$/.test(formData.mobileNo)) {
-      temp.mobileNo = "Enter valid mobile number";
-      valid = false;
-    }
-
-    if (!formData.city.trim()) {
-      temp.city = "City is required";
-      valid = false;
-    }
-
-    if (!formData.query.trim()) {
-      temp.query = "Query is required";
-      valid = false;
-    }
-
-    if (otp.join("").length !== 4) {
-      temp.otp = "Enter OTP";
-      valid = false;
-    }
-
-    setErrors(temp);
-
-    return valid;
-  };
-  const sendOtp = () => {
-    if (!/^[6-9]\d{9}$/.test(formData.mobileNo)) {
-      setErrors((prev) => ({
-        ...prev,
-        mobileNo: "Enter valid mobile number",
-      }));
-      return;
-    }
-
-    setOtp(["", "", "", ""]);
-    setOtpSent(true);
-    setTimer(60);
-
-    console.log("OTP Sent");
-  };
+  const {
+    formData,
+    errors,
+    otp,
+    timer,
+    loading,
+    errorsMessage,
+    successOpen,
+    setSuccessOpen,
+    handleChange,
+    handleOtpChange,
+    sendOtp,
+    submitLead,
+    otpVerified,
+    verifyOtp,
+  } = useLeadForm();
   return (
     <Box sx={styles.container}>
       <Typography sx={styles.title}>Get More Information</Typography>
-
       <Stack spacing={2.2}>
         <TextField
           fullWidth
@@ -251,29 +48,38 @@ const LeadForm = () => {
           />
 
           <Typography
-            sx={styles.sendOtp}
+            sx={{
+              ...styles.sendOtp,
+              color: timer > 0 ? "#999" : "#0054A6",
+              cursor: timer > 0 ? "not-allowed" : "pointer",
+            }}
             onClick={timer === 0 ? sendOtp : undefined}
           >
-            {timer > 0 ? `Resend (${timer})` : "Send OTP"}
+            {timer > 0 ? "Resend OTP" : "Send OTP"}
           </Typography>
         </Box>
 
-        <Box>
-          <Box
+        {timer > 0 && (
+          <Typography
             sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              mb: 1.5,
+              mt: 0.5,
+              fontSize: 14,
+              color: "text.secondary",
+              textAlign: "right",
+              pr: 3,
             }}
           >
-            <Typography color="#555">Enter OTP</Typography>
-
-            <Typography color="#555">
-              {otpSent ? `00:${String(timer).padStart(2, "0")}` : "00:00"}
-            </Typography>
-          </Box>
-
-          <Stack direction="row" spacing={2}>
+            00:{String(timer).padStart(2, "0")}
+          </Typography>
+        )}
+        <Box>
+          <Stack
+            direction="row"
+            spacing={3}
+            sx={{
+              alignItems: "center",
+            }}
+          >
             {otp.map((digit, index) => (
               <TextField
                 key={index}
@@ -292,18 +98,27 @@ const LeadForm = () => {
                 sx={styles.otpBox}
               />
             ))}
-            {errors.otp && (
-              <Typography
-                sx={{
-                  color: "error.main",
-                  fontSize: 12,
-                  mt: 1,
-                }}
-              >
-                {errors.otp}
-              </Typography>
-            )}
+
+            <Button
+              onClick={verifyOtp}
+              disabled={otpVerified || otp.join("").length !== 6}
+              sx={styles.verifyButton}
+            >
+              {otpVerified ? "Verified" : "Verify"}
+            </Button>
           </Stack>
+
+          {errors.otp && (
+            <Typography
+              sx={{
+                color: "error.main",
+                fontSize: 12,
+                mt: 1,
+              }}
+            >
+              {errors.otp}
+            </Typography>
+          )}
         </Box>
 
         <TextField
@@ -317,7 +132,7 @@ const LeadForm = () => {
           sx={styles.input}
         />
 
-        <TextField
+        {/* <TextField
           fullWidth
           multiline
           // rows={2}
@@ -337,15 +152,49 @@ const LeadForm = () => {
           }}
         >
           {formData.query.length}/100
-        </Typography>
+        </Typography> */}
+
+        <Box sx={styles.mobileWrapper}>
+          <TextField
+            fullWidth
+            multiline
+            // rows={2}
+            label="Enter your Query"
+            name="query"
+            value={formData.query}
+            onChange={handleChange}
+            error={!!errors.query}
+            helperText={errors.query}
+            sx={styles.queryInput}
+          />
+          <Typography
+            sx={{
+              textAlign: "right",
+              fontSize: 12,
+              color: "text.secondary",
+            }}
+          >
+            {formData.query.length}/100
+          </Typography>
+        </Box>
+        {errorsMessage && (
+          <Typography
+            sx={{
+              color: "error.main",
+            }}
+          >
+            {errorsMessage}
+          </Typography>
+        )}
         <Button
           sx={styles.submitButton}
           onClick={submitLead}
-          disabled={loading}
+          disabled={loading || otpVerified === false}
         >
           {loading ? "Submitting..." : "Request a call back"}
         </Button>
-      </Stack>
+      </Stack>{" "}
+      <SuccessModal open={successOpen} onClose={() => setSuccessOpen(false)} />
     </Box>
   );
 };

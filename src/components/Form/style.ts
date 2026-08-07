@@ -66,11 +66,11 @@ export const styles = {
   },
 
   otpBox: {
-    width: 50,
+    width: 34,
 
     "& .MuiOutlinedInput-root": {
-      width: 50,
-      height: 50,
+      width: 45,
+      height: 45,
       borderRadius: "14px",
       boxShadow: "0 4px 14px rgba(0,0,0,.08)",
 
@@ -83,7 +83,30 @@ export const styles = {
       },
     },
   },
+  verifyButton: {
+    minWidth: 90,
+    height: 45,
+    borderRadius: "12px",
+    textTransform: "none",
+    fontWeight: 600,
+    fontSize: 16,
 
+    bgcolor: "#0054A6",
+    color: "#fff",
+    boxShadow: "none",
+
+    "&:hover": {
+      bgcolor: "#024b94",
+
+      boxShadow: "none",
+    },
+
+    "&.Mui-disabled": {
+      bgcolor: "#3f74a8",
+      color: "#ffffff",
+      opacity: 1,
+    },
+  },
   queryInput: {
     "& textarea": {
       resize: "none",
@@ -109,16 +132,21 @@ export const styles = {
   },
 
   submitButton: {
-    height: 60,
+    height: 55,
     borderRadius: "18px",
     bgcolor: "#0054A6",
     textTransform: "none",
     fontSize: 20,
-    fontWeight: 600,
+    fontWeight: 700,
     color: "#fff",
     "&:hover": {
       bgcolor: "#00458A",
       boxShadow: "none",
+    },
+    "&:disabled": {
+      bgcolor: "#808080",
+      boxShadow: "none",
+      color: "#fff",
     },
   },
 };

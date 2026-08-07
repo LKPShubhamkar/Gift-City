@@ -34,7 +34,7 @@ const Header = () => {
         right: 0,
         zIndex: 1300,
 
-        bgcolor: scrolled ? "#fff" : "transparent",
+        bgcolor: scrolled ? "#fff" : "#023462",
         boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.08)" : "none",
 
         transition: "background-color 0.3s ease, box-shadow 0.3s ease",
