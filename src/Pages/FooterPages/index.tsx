@@ -39,7 +39,7 @@ const Footerinfo = ({ page }: FooterinfoProps) => {
           if (item.type === "orderedList") {
             return (
               <ol key={index}>
-                {item.items.map((listItem, i) => (
+                {item.items.map((listItem: any, i: any) => (
                   <li key={i}>{listItem}</li>
                 ))}
               </ol>
@@ -49,7 +49,7 @@ const Footerinfo = ({ page }: FooterinfoProps) => {
           if (item.type === "unorderedList") {
             return (
               <ul key={index}>
-                {item.items.map((listItem, i) => (
+                {item.items.map((listItem: any, i: any) => (
                   <li key={i}>{listItem}</li>
                 ))}
               </ul>
