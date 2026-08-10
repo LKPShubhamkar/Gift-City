@@ -3,7 +3,7 @@ import Header from "../../components/Header/header";
 import Hero from "../Hero/hero";
 import LeadForm from "../../components/Form";
 import GiftInfo from "../Content";
-import Footer from "../../components/Footer/footer";
+// import Footer from "../../components/Footer/footer";
 
 const MainLayout = () => {
   const theme = useTheme();
@@ -61,7 +61,7 @@ const MainLayout = () => {
           )}
         </Box>
 
-        <Footer />
+        {/* <Footer /> */}
       </Box>
     </>
   );

@@ -3,8 +3,11 @@ import logoLight from "../../assets/logo.png";
 import logoDark from "../../assets/dark-logo.png";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+type HeaderProps = {
+  forceWhite?: boolean;
+};
 
-const Header = () => {
+const Header = ({ forceWhite = false }: HeaderProps) => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -25,6 +28,8 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const isWhiteHeader = forceWhite || scrolled;
+
   return (
     <AppBar
       elevation={0}
@@ -35,8 +40,8 @@ const Header = () => {
         right: 0,
         zIndex: 1300,
 
-        bgcolor: scrolled ? "#fff" : "#023462",
-        boxShadow: scrolled ? "0 2px 12px rgba(0,0,0,0.08)" : "none",
+        bgcolor: isWhiteHeader ? "#fff" : "#023462",
+        boxShadow: isWhiteHeader ? "0 2px 12px rgba(0,0,0,0.08)" : "none",
 
         transition: "background-color 0.3s ease, box-shadow 0.3s ease",
       }}
@@ -65,7 +70,7 @@ const Header = () => {
         >
           <Box
             component="img"
-            src={scrolled ? logoDark : logoLight}
+            src={isWhiteHeader ? logoDark : logoLight}
             alt="LKP"
             sx={{
               width: {

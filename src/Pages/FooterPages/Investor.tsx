@@ -86,7 +86,7 @@ const InvestorInformationPage = () => {
 
   return (
     <>
-      <Header />
+      <Header forceWhite={true} />
       <Box
         sx={{
           maxWidth: "1400px", // instead of 85%

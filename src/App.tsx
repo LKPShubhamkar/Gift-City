@@ -3,6 +3,7 @@ import "./App.css";
 import MainLayout from "./Pages/MainLayout";
 import Footerinfo from "./Pages/FooterPages";
 import Investor from "./Pages/FooterPages/Investor";
+import Footer from "./components/Footer/footer";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
         />
 
         <Route path="/investor-information" element={<Investor />} />
-      </Routes>
+      </Routes>{" "}
+      <Footer />
     </BrowserRouter>
   );
 }

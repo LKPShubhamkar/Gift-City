@@ -22,7 +22,7 @@ const Footerinfo = ({ page }: FooterinfoProps) => {
   }
   return (
     <>
-      <Header />
+      <Header forceWhite={true} />
 
       <main className="footer-page">
         <h1>{page}</h1>
@@ -33,6 +33,16 @@ const Footerinfo = ({ page }: FooterinfoProps) => {
           }
 
           if (item.type === "paragraph") {
+            const match = item.text.match(/^([a-zA-Z]\.)\s*(.*)/s);
+
+            if (match) {
+              return (
+                <p key={index}>
+                  <strong>{match[1]}</strong> {match[2]}
+                </p>
+              );
+            }
+
             return <p key={index}>{item.text}</p>;
           }
 
