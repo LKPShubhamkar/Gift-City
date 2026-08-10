@@ -2,6 +2,7 @@ import { AppBar, Box, Toolbar } from "@mui/material";
 import logoLight from "../../assets/logo.png";
 import logoDark from "../../assets/dark-logo.png";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -52,20 +53,32 @@ const Header = () => {
         }}
       >
         <Box
-          component="img"
-          src={scrolled ? logoDark : logoLight}
-          alt="LKP"
-          sx={{
-            width: {
-              xs: 70,
-              md: 90,
-            },
-            height: "auto",
-            cursor: "pointer",
-            userSelect: "none",
-            transition: "0.3s ease",
+          component={Link}
+          to="/"
+          onClick={() => {
+            window.scrollTo(0, 0);
           }}
-        />
+          sx={{
+            display: "inline-block",
+            lineHeight: 0,
+          }}
+        >
+          <Box
+            component="img"
+            src={scrolled ? logoDark : logoLight}
+            alt="LKP"
+            sx={{
+              width: {
+                xs: 70,
+                md: 90,
+              },
+              height: "auto",
+              cursor: "pointer",
+              userSelect: "none",
+              transition: "0.3s ease",
+            }}
+          />
+        </Box>
       </Toolbar>
     </AppBar>
   );

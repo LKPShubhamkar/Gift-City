@@ -7,7 +7,7 @@ import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 
 import background from "../../assets/Footer-background.png";
 import logo from "../../assets/logo.png";
-import { firstLinks, registrationDetails } from "../../Pages/Content/data";
+import { firstLinks, registrationDetails } from "../../Common/data";
 
 const Footer = () => {
   return (

@@ -18,6 +18,7 @@ const LeadForm = () => {
     sendOtp,
     submitLead,
     otpVerified,
+    isFormComplete,
     verifyOtp,
   } = useLeadForm();
   return (
@@ -45,18 +46,20 @@ const LeadForm = () => {
             error={!!errors.mobileNo}
             helperText={errors.mobileNo}
             sx={styles.input}
+            disabled={otpVerified}
           />
-
-          <Typography
-            sx={{
-              ...styles.sendOtp,
-              color: timer > 0 ? "#999" : "#0054A6",
-              cursor: timer > 0 ? "not-allowed" : "pointer",
-            }}
-            onClick={timer === 0 ? sendOtp : undefined}
-          >
-            {timer > 0 ? "Resend OTP" : "Send OTP"}
-          </Typography>
+          {!otpVerified && (
+            <Typography
+              sx={{
+                ...styles.sendOtp,
+                color: timer > 0 ? "#999" : "#0054A6",
+                cursor: timer > 0 ? "not-allowed" : "pointer",
+              }}
+              onClick={timer === 0 ? sendOtp : undefined}
+            >
+              {timer > 0 ? "Resend OTP" : "Send OTP"}
+            </Typography>
+          )}
         </Box>
 
         {/* {timer > 0 && ( */}
@@ -78,17 +81,17 @@ const LeadForm = () => {
           >
             Enter OTP
           </Typography>
-          <Typography
-            sx={{
-              mt: 0.5,
-              fontSize: 14,
-              color: "text.secondary",
-              textAlign: "right",
-              pr: 0.5,
-            }}
-          >
-            00:{String(timer).padStart(2, "0")}
-          </Typography>
+          {!otpVerified && timer > 0 && (
+            <Typography
+              sx={{
+                mt: 0.5,
+                fontSize: 14,
+                color: "text.secondary",
+              }}
+            >
+              00:{String(timer).padStart(2, "0")}
+            </Typography>
+          )}
         </Box>
 
         {/* )} */}
@@ -116,6 +119,7 @@ const LeadForm = () => {
                   },
                 }}
                 sx={styles.otpBox}
+                disabled={otpVerified}
               />
             ))}
 
@@ -209,7 +213,7 @@ const LeadForm = () => {
         <Button
           sx={styles.submitButton}
           onClick={submitLead}
-          disabled={loading || otpVerified === false}
+          disabled={loading || !isFormComplete}
         >
           {loading ? "Submitting..." : "Request a call back"}
         </Button>

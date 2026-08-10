@@ -10,6 +10,7 @@ const getAuthHeader = () => {
 export const commonApi = async (
   endpoint: string,
   payload: Record<string, any> = {},
+  responseType: "json" | "blob" = "json",
 ) => {
   try {
     const response = await fetch(`${BASE_URL}/${endpoint}`, {
@@ -21,6 +22,9 @@ export const commonApi = async (
       body: Object.keys(payload).length ? JSON.stringify(payload) : undefined,
     });
 
+    if (responseType === "blob") {
+      return await response.blob();
+    }
     const data = await response.json();
 
     return data;

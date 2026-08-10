@@ -1,0 +1,171 @@
+.footer-page {
+  width: 100%;
+  max-width: "1400px";
+  margin: 0 auto;
+  padding:120px 60px 80px;
+  box-sizing: border-box;
+  padding-top: "250px";
+  font-family: "Lato", sans-serif;
+  color: #111;  
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+}
+
+/* Main title */
+.footer-page h1 {
+  margin: 0 0 24px;
+  font-size: 48px;
+  line-height: 1.3;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Section headings */
+.footer-page h2 {
+  margin: 28px 0 12px;
+  font-size: 22px;
+  line-height: 1.4;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Paragraphs */
+.footer-page p {
+  margin: 0 0 14px;
+  font-size: 18px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: #222;
+}
+
+/* Ordered list */
+.footer-page ol {
+  margin: 8px 0 18px;
+  padding-left: 24px;
+}
+
+.footer-page ol li {
+  margin-bottom: 6px;
+  padding-left: 4px;
+
+  font-size: 18px;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* Unordered list */
+.footer-page ul {
+  margin: 10px 0 20px;
+  padding-left: 24px;
+  list-style: none;
+}
+
+.footer-page ul li {
+  position: relative;
+  margin-bottom: 9px;
+  padding-left: 20px;
+
+  font-size: 18px;
+  line-height: 1.5;
+  color: #222;
+}
+
+/* Blue bullets like the design */
+.footer-page ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #095192;
+}
+
+/* Links */
+.footer-page a {
+  color: #095192;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.footer-page a:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Tablet
+========================= */
+
+@media (max-width: 900px) {
+  .footer-page {
+    padding: 28px 35px 60px;
+  }
+
+  .footer-page h1 {
+    font-size: 26px;
+  }
+
+  .footer-page h2 {
+    font-size: 17px;
+  }
+
+  .footer-page p,
+  .footer-page ol li,
+  .footer-page ul li {
+    font-size: 13px;
+  }
+}
+
+/* =========================
+   Mobile
+========================= */
+
+@media (max-width: 600px) {
+  .footer-page {
+    padding: 100px 20px 50px;
+  }
+
+  .footer-page h1 {
+    margin-bottom: 20px;
+    font-size: 26px;
+  }
+
+  .footer-page h2 {
+    margin-top: 24px;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+
+  .footer-page p {
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .footer-page ol {
+    padding-left: 20px;
+  }
+
+  .footer-page ol li {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .footer-page ul {
+    padding-left: 0;
+  }
+
+  .footer-page ul li {
+    padding-left: 18px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  .footer-page ul li::before {
+    top: 7px;
+    width: 6px;
+    height: 6px;
+  }
+}

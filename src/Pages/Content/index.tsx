@@ -1,5 +1,5 @@
 import { Box, Container, Typography } from "@mui/material";
-import { intro, whyGiftItems, ifsca } from "./data";
+import { intro, whyGiftItems, ifsca } from "../../Common/data";
 
 const GiftInfo = () => {
   return (

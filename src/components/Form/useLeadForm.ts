@@ -269,6 +269,14 @@ const useLeadForm = () => {
       }));
     }
   };
+
+  const isFormComplete =
+    formData.name.trim().length >= 2 &&
+    /^[6-9]\d{9}$/.test(formData.mobileNo) &&
+    otpVerified &&
+    formData.city.trim().length >= 2 &&
+    formData.query.trim().length > 0;
+
   return {
     formData,
     errors,
@@ -279,6 +287,7 @@ const useLeadForm = () => {
     sendingOtp,
     loading,
     successOpen,
+    isFormComplete,
     setSuccessOpen,
     handleChange,
     handleOtpChange,
